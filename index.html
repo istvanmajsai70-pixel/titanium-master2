@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM EMPIRE - PRICE LIST & SOFTWARE CATALOG</title>
+    <title>TITANIUM EMPIRE - ENTERPRISE HUB</title>
     <style>
         body {
             background: #000 url('https://wallpaperaccess.com/full/158607.jpg') no-repeat center center fixed;
@@ -11,77 +11,99 @@
             font-family: 'Courier New', monospace;
             margin: 0; overflow: hidden;
         }
-        .overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.85); pointer-events: none; }
-        .window {
-            position: absolute; background: rgba(0, 15, 15, 0.95);
-            border: 1px solid #00ffcc; padding: 15px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
-            overflow-y: auto;
-        }
-        .header { background: #00ffcc; color: #000; font-weight: bold; padding: 5px; margin-bottom: 10px; text-transform: uppercase; text-align: center; }
+        .overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.88); pointer-events: none; }
         
-        /* Árlista stílus */
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th { text-align: left; color: #ff0000; border-bottom: 1px solid #ff0000; padding: 5px; }
-        td { padding: 8px 5px; border-bottom: 1px solid rgba(0, 255, 204, 0.2); }
-        .price { color: #fff; font-weight: bold; text-align: right; }
-        .tag { font-size: 9px; background: #333; padding: 2px 4px; border-radius: 3px; margin-left: 5px; }
+        /* Ablak stílusok */
+        .window {
+            position: absolute; background: rgba(0, 10, 10, 0.95);
+            border: 1px solid #00ffcc; padding: 15px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+        }
+        .header { background: #00ffcc; color: #000; font-weight: bold; padding: 5px; margin-bottom: 10px; text-transform: uppercase; text-align: center; font-size: 12px; }
+        
+        /* Katalógus és Gombok */
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 10px 5px; border-bottom: 1px solid rgba(0, 255, 204, 0.1); font-size: 11px; }
+        .price-tag { color: #fff; font-weight: bold; cursor: help; border-bottom: 1px dotted #fff; }
+        .buy-btn { 
+            background: #ff0000; color: #fff; border: none; padding: 3px 8px; 
+            cursor: pointer; font-size: 10px; font-weight: bold; float: right;
+        }
+        .buy-btn:hover { background: #fff; color: #ff0000; }
 
-        #price-list { top: 20px; left: 20px; width: 450px; height: 550px; border-color: #00ffcc; }
-        #master { top: 20px; left: 500px; width: 400px; height: 250px; border: 2px solid #ff0000; }
-        #bot-status { top: 300px; left: 500px; width: 400px; height: 270px; border-color: #ffff00; }
+        /* Biztonsági Pecsét (B opció) */
+        .seal {
+            border: 2px solid #ffff00; color: #ffff00; padding: 5px;
+            text-align: center; font-weight: bold; margin-top: 10px;
+            text-transform: uppercase; font-size: 10px;
+        }
+
+        /* Dokumentáció Popup (C opció) */
+        #desc-box {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 300px; background: #000; border: 2px solid #ff0000; padding: 20px; z-index: 1000;
+        }
+
+        #price-list { top: 20px; left: 20px; width: 500px; height: 580px; }
+        #master { top: 20px; left: 540px; width: 350px; }
     </style>
 </head>
 <body>
     <div class="overlay"></div>
 
     <div class="window" id="price-list">
-        <div class="header">Titanium Official Catalog & Price List</div>
+        <div class="header">Titanium Enterprise Catalog</div>
         <table>
-            <tr><th>DIVÍZIÓ / SZOFTVER</th><th>ÁR</th></tr>
-            <tr><td>Titanium Cloud 1TB (Monthly)</td><td class="price">$19.99</td></tr>
-            <tr><td>Titanium Cloud 100TB (Lifetime)</td><td class="price">$2,499.00</td></tr>
-            <tr><td>AI Content Engine Pro v2.1 <span class="tag">SOFT</span></td><td class="price">$450.00</td></tr>
-            <tr><td>Cyber-Audit Express Scan</td><td class="price">$120.00</td></tr>
-            <tr><td>Full Enterprise Security Shield <span class="tag">SOFT</span></td><td class="price">$1,200.00</td></tr>
-            <tr><td>HFT Arbitrage Bot License <span class="tag">SOFT</span></td><td class="price">$890.00</td></tr>
-            <tr><td>Titanium Nexus Controller <span class="tag">CORE</span></td><td class="price">$5,000.00</td></tr>
-            <tr><td>Custom AI Bot Development (per Unit)</td><td class="price">$150.00</td></tr>
-            <tr><td>Deep Web Data Recovery</td><td class="price">$350.00</td></tr>
-            <tr><td>Neural Marketing API Access</td><td class="price">$75.00/m</td></tr>
+            <tr>
+                <td><b>Titanium Cloud (3000TB)</b><br><small>Hálózati tárhely megoldás</small></td>
+                <td><span class="price-tag" onclick="showDesc('A világ legnagyobb privát cloud hálózata. 256-bit titkosítás.')">$2,499</span>
+                <button class="buy-btn" onclick="order()">ORDER</button></td>
+            </tr>
+            <tr>
+                <td><b>Nexus Controller v4</b><br><small>Központi irányító szoftver</small></td>
+                <td><span class="price-tag" onclick="showDesc('Teljes automatizáció 120+ bot kezeléséhez. Egyedi licenc.')">$5,000</span>
+                <button class="buy-btn" onclick="order()">ORDER</button></td>
+            </tr>
+            <tr>
+                <td><b>Cyber-Shield Enterprise</b><br><small>AI-alapú védelem</small></td>
+                <td><span class="price-tag" onclick="showDesc('Valós idejű behatolásjelző és blokkoló rendszer.')">$1,200</span>
+                <button class="buy-btn" onclick="order()">ORDER</button></td>
+            </tr>
         </table>
-        <p style="font-size: 10px; color: #888; margin-top: 20px;">* Az árak a piaci keresletnek megfelelően 120 bot által dinamikusan szabályozottak.</p>
+        
+        <div class="seal">
+            Verified by Titanium Security Bureau<br>
+            ★ ★ ★ ★ ★<br>
+            100% SECURE TRANSACTION
+        </div>
     </div>
 
     <div class="window" id="master">
-        <div class="header" style="background: #ff0000;">Master Control - Titanium</div>
-        <p>Total Revenue (Live): <span class="price" id="total" style="font-size: 20px; color: #0f0;">$0.00</span></p>
-        <p>Active Ventures: <span class="price">4 Units</span></p>
-        <p>Software Licenses Issued: <span class="price" id="licenses">1,402</span></p>
+        <div class="header" style="background: #ff0000">Financial Overview</div>
+        <p>Total Revenue: <span id="rev" style="color:#0f0">$14,502.20</span></p>
+        <p>Bot Status: <span style="color:#0f0">120 Active</span></p>
         <hr color="#ff0000">
-        <p style="font-size: 10px;">ID: TITANIUM-MASTER-001 | Status: AUTHORIZED</p>
+        <button onclick="order()" style="width:100%; background:#0f0; border:none; padding:10px; font-weight:bold; cursor:pointer">WITHDRAW TO IBAN</button>
     </div>
 
-    <div class="window" id="bot-status">
-        <div class="header" style="background: #ffff00; color: #000;">120 BOTS - LIVE LOG</div>
-        <div id="logs" style="font-size: 10px; color: #aaa;"></div>
+    <div id="desc-box">
+        <div class="header" id="desc-title">Software Info</div>
+        <p id="desc-text" style="font-size:12px;"></p>
+        <button onclick="document.getElementById('desc-box').style.display='none'" style="background:#444; color:#fff; border:none; width:100%; cursor:pointer">CLOSE</button>
     </div>
 
     <script>
-        let revenue = 12450.75;
-        function update() {
-            revenue += Math.random() * 5;
-            document.getElementById('total').innerText = "$" + revenue.toFixed(2);
-            
-            const logs = document.getElementById('logs');
-            const units = ["Cloud-Bot", "AI-Bot", "Sec-Bot", "Trade-Bot"];
-            const actions = ["License sold", "Audit complete", "Storage allocated", "Trade win"];
-            
-            const line = document.createElement('div');
-            line.innerHTML = `> <span style="color:#ffff00">${units[Math.floor(Math.random()*4)]}</span>: ${actions[Math.floor(Math.random()*4)]} (<span style="color:#0f0">+$${(Math.random()*50).toFixed(2)}</span>)`;
-            logs.prepend(line);
-            if(logs.childNodes.length > 12) logs.removeChild(logs.lastChild);
+        function showDesc(text) {
+            document.getElementById('desc-text').innerText = text;
+            document.getElementById('desc-box').style.display = 'block';
         }
-        setInterval(update, 1000);
+        function order() {
+            alert("Rendelés rögzítve! Az IBAN adatok és a szerződés elküldve a botoknak feldolgozásra.");
+        }
+        setInterval(() => {
+            let r = parseFloat(document.getElementById('rev').innerText.replace('$','').replace(',',''));
+            r += Math.random() * 10;
+            document.getElementById('rev').innerText = "$" + r.toLocaleString('en-US', {minimumFractionDigits: 2});
+        }, 2000);
     </script>
 </body>
 </html>

@@ -2,52 +2,47 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM - SHADOW INTELLIGENCE</title>
+    <title>TITANIUM - IMPERIAL FORTRESS</title>
     <style>
-        body { background: #000; color: #ff0000; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
-        .window { position: absolute; background: rgba(15, 0, 0, 0.95); border: 1px solid #ff0000; padding: 10px; box-shadow: 0 0 20px #ff0000; }
-        .header { background: #ff0000; color: #000; font-weight: bold; padding: 2px; text-align: center; font-size: 11px; text-transform: uppercase; }
+        body { background: #000; color: #0f0; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        .window { position: absolute; background: rgba(0, 0, 0, 0.9); border: 1px solid #0f0; padding: 10px; }
+        .header { background: #0f0; color: #000; font-weight: bold; padding: 2px; text-align: center; font-size: 11px; }
         
-        #spy-monitor { bottom: 20px; left: 20px; width: 450px; height: 250px; border-color: #ff5500; }
-        #intel-stats { top: 20px; right: 20px; width: 300px; border-color: #ff0000; color: #fff; }
-        .intel-line { font-size: 10px; color: #ff5500; border-bottom: 1px solid #330000; padding: 3px; }
-        .red-alert { animation: blink 1s infinite; color: #ff0000; font-weight: bold; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        #defense-panel { top: 220px; left: 20px; width: 340px; border-color: #888; color: #888; }
+        #auction-hall { top: 350px; left: 380px; width: 620px; height: 200px; border-color: #ffd700; color: #ffd700; }
+        .bid-line { font-size: 11px; margin-bottom: 3px; border-bottom: 1px solid #443c00; }
+        .secure-msg { font-size: 9px; color: #00ff00; }
     </style>
 </head>
 <body>
-    <div class="window" id="intel-stats">
-        <div class="header">Intelligence Status</div>
-        <p>Active Spies: <span class="red-alert">60</span></p>
-        <p>Secrets Leaked/Sold: <span id="secret-count">1,248</span></p>
-        <p>Total Intel Profit: <span id="intel-money" style="color:#0f0">$452,000</span></p>
+    <div class="window" id="defense-panel">
+        <div class="header" style="background:#888; color:#000">Counter-Intelligence Shield</div>
+        <p>Active Shielding: <span style="color:#fff">40 Bots</span></p>
+        <p>Intrusions Blocked: <span id="block-count">8,421</span></p>
+        <div id="shield-log" class="secure-msg"></div>
     </div>
 
-    <div class="window" id="spy-monitor">
-        <div class="header" style="background:#ff5500">Live Information Brokerage Feed</div>
-        <div id="spy-feed" style="height: 200px; overflow: hidden;"></div>
+    <div class="window" id="auction-hall">
+        <div class="header" style="background:#ffd700; color:#000">Black Market Elite Auction Hall</div>
+        <div id="auction-feed" style="height: 150px; overflow: hidden;"></div>
     </div>
 
     <script>
-        let secrets = 1248;
-        let money = 452000;
-        const sources = ["Gov_Srv", "MegaCorp_Mail", "WallSt_Algo"];
-        const types = ["Top Secret Strategy", "Industrial Formula", "Market Hack"];
+        let blocks = 8421;
+        const items = ["Quantum_Key", "Gov_Access", "CEO_Records", "Neural_Code"];
 
-        function updateSpyFeed() {
-            secrets += 1;
-            money += Math.floor(Math.random() * 5000);
-            document.getElementById('secret-count').innerText = secrets.toLocaleString();
-            document.getElementById('intel-money').innerText = "$" + money.toLocaleString();
+        function updateEmpire() {
+            blocks += Math.floor(Math.random()*5);
+            document.getElementById('block-count').innerText = blocks.toLocaleString();
             
-            const feed = document.getElementById('spy-feed');
+            const af = document.getElementById('auction-feed');
             const div = document.createElement('div');
-            div.className = 'intel-line';
-            div.innerHTML = `[${sources[Math.floor(Math.random()*3)]}] -> ${types[Math.floor(Math.random()*3)]} <span style="color:#0f0">SOLD</span>`;
-            feed.prepend(div);
-            if(feed.childNodes.length > 10) feed.removeChild(feed.lastChild);
+            div.className = 'bid-line';
+            div.innerHTML = `[LIVE BID] ${items[Math.floor(Math.random()*4)]} >> Current Offer: <span style="color:#fff">$${(Math.random()*100000 + 50000).toLocaleString()}</span>`;
+            af.prepend(div);
+            if(af.childNodes.length > 8) af.removeChild(af.lastChild);
         }
-        setInterval(updateSpyFeed, 3500);
+        setInterval(updateEmpire, 2500);
     </script>
 </body>
 </html>

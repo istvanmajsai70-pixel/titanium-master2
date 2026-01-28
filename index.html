@@ -1,48 +1,15 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <title>TITANIUM - IMPERIAL FORTRESS</title>
-    <style>
-        body { background: #000; color: #0f0; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
-        .window { position: absolute; background: rgba(0, 0, 0, 0.9); border: 1px solid #0f0; padding: 10px; }
-        .header { background: #0f0; color: #000; font-weight: bold; padding: 2px; text-align: center; font-size: 11px; }
-        
-        #defense-panel { top: 220px; left: 20px; width: 340px; border-color: #888; color: #888; }
-        #auction-hall { top: 350px; left: 380px; width: 620px; height: 200px; border-color: #ffd700; color: #ffd700; }
-        .bid-line { font-size: 11px; margin-bottom: 3px; border-bottom: 1px solid #443c00; }
-        .secure-msg { font-size: 9px; color: #00ff00; }
-    </style>
-</head>
-<body>
-    <div class="window" id="defense-panel">
-        <div class="header" style="background:#888; color:#000">Counter-Intelligence Shield</div>
-        <p>Active Shielding: <span style="color:#fff">40 Bots</span></p>
-        <p>Intrusions Blocked: <span id="block-count">8,421</span></p>
-        <div id="shield-log" class="secure-msg"></div>
-    </div>
 
-    <div class="window" id="auction-hall">
-        <div class="header" style="background:#ffd700; color:#000">Black Market Elite Auction Hall</div>
-        <div id="auction-feed" style="height: 150px; overflow: hidden;"></div>
-    </div>
-
-    <script>
-        let blocks = 8421;
-        const items = ["Quantum_Key", "Gov_Access", "CEO_Records", "Neural_Code"];
-
-        function updateEmpire() {
-            blocks += Math.floor(Math.random()*5);
-            document.getElementById('block-count').innerText = blocks.toLocaleString();
-            
-            const af = document.getElementById('auction-feed');
-            const div = document.createElement('div');
-            div.className = 'bid-line';
-            div.innerHTML = `[LIVE BID] ${items[Math.floor(Math.random()*4)]} >> Current Offer: <span style="color:#fff">$${(Math.random()*100000 + 50000).toLocaleString()}</span>`;
-            af.prepend(div);
-            if(af.childNodes.length > 8) af.removeChild(af.lastChild);
-        }
-        setInterval(updateEmpire, 2500);
-    </script>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html>
+    <head><title>Titanium Live Nexus</title></head>
+    <body style='background:#000; color:#0f0; font-family:monospace; text-align:center;'>
+        <h1>TITANIUM GLOBAL EMPIRE - LIVE DATA</h1>
+        <hr>
+        <p>LAST SYNC: 2026-01-28 03:41:55</p>
+        <p>STATUS: 200 BOTS OPERATING GLOBALLY</p>
+        <p>STORAGE: 3000TB CLOUD ACTIVE</p>
+        <hr>
+        <p>All revenues directed to: IBAN HU00...</p>
+    </body>
+    </html>
+    

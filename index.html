@@ -2,46 +2,47 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM - GLOBAL INFLUENCE</title>
+    <title>TITANIUM - GLOBAL OUTREACH</title>
     <style>
         body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
-        .window { position: absolute; background: rgba(10, 10, 0, 0.95); border: 1px solid #ffd700; padding: 10px; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
-        .header { background: #ffd700; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; text-transform: uppercase; }
+        .window { position: absolute; background: rgba(5, 0, 10, 0.95); border: 1px solid #bc13fe; padding: 10px; box-shadow: 0 0 20px rgba(188, 19, 254, 0.3); }
+        .header { background: #bc13fe; color: #fff; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; text-transform: uppercase; }
         
-        #vip-monitor { top: 20px; left: 380px; width: 300px; height: 300px; }
+        #outreach-monitor { bottom: 20px; right: 20px; width: 400px; height: 250px; }
         #stats { top: 20px; left: 20px; width: 340px; border-color: #0f0; }
-        .vip-line { font-size: 10px; color: #ffd700; margin-bottom: 5px; border-bottom: 1px solid #443c00; }
-        .count { font-size: 24px; color: #fff; text-shadow: 0 0 10px #ffd700; }
+        .msg-line { font-size: 10px; color: #bc13fe; margin-bottom: 5px; border-bottom: 1px solid #2a0044; }
+        .highlight { color: #fff; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="window" id="stats">
-        <div class="header" style="background: #0f0">Empire Status</div>
-        <p>Total Bots: <span style="color:#fff">280 (200 Core + 50 Soc + 30 VIP)</span></p>
-        <p>Database Size: <span id="db-size" class="count">0</span> <small>Targets</small></p>
+        <div class="header" style="background: #0f0">Empire Network</div>
+        <p>Total Bots: <span class="highlight">310 (280 Base + 30 Outreach)</span></p>
+        <p>VIP Connections: <span id="conn-count" class="highlight" style="font-size: 20px;">42</span></p>
     </div>
 
-    <div class="window" id="vip-monitor">
-        <div class="header">VIP Influence Database - Live Crawl</div>
-        <div id="vip-feed" style="height: 250px; overflow: hidden;"></div>
+    <div class="window" id="outreach-monitor">
+        <div class="header">AI VIP Communication Hub</div>
+        <div id="outreach-feed" style="height: 200px; overflow: hidden;"></div>
     </div>
 
     <script>
-        let dbSize = 1420;
-        const targets = ["CEO of Global Bank", "Tech Billionaire", "Venture Capitalist", "EU Regulator", "Hollywood Agent"];
+        let conns = 42;
+        const targets = ["Elon M.", "Jeff B.", "Tim C.", "Satya N.", "Jensen H."];
+        const actions = ["Sent Personalized Offer", "Analyzing Portfolio", "Scheduling Meeting", "Deal Pending"];
         
-        function updateVIP() {
-            dbSize += Math.floor(Math.random() * 3);
-            document.getElementById('db-size').innerText = dbSize;
+        function updateOutreach() {
+            if(Math.random() > 0.7) conns++;
+            document.getElementById('conn-count').innerText = conns;
             
-            const feed = document.getElementById('vip-feed');
+            const feed = document.getElementById('outreach-feed');
             const div = document.createElement('div');
-            div.className = 'vip-line';
-            div.innerHTML = `[SECURED] ${targets[Math.floor(Math.random()*targets.length)]} - Data Encrypted`;
+            div.className = 'msg-line';
+            div.innerHTML = `[AI AGENT] ${targets[Math.floor(Math.random()*targets.length)]}: ${actions[Math.floor(Math.random()*actions.length)]}`;
             feed.prepend(div);
-            if(feed.childNodes.length > 12) feed.removeChild(feed.lastChild);
+            if(feed.childNodes.length > 10) feed.removeChild(feed.lastChild);
         }
-        setInterval(updateVIP, 4000);
+        setInterval(updateOutreach, 5000);
     </script>
 </body>
 </html>

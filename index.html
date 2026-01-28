@@ -2,48 +2,48 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM - SHADOW EMPIRE</title>
+    <title>TITANIUM - GLOBAL INTELLIGENCE</title>
     <style>
-        body { background: #000; color: #00ff41; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
-        .window { position: absolute; background: rgba(0, 5, 0, 0.98); border: 2px solid #00ff41; padding: 10px; box-shadow: 0 0 25px #00ff41; }
-        .header { background: #00ff41; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; }
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        .window { position: absolute; background: rgba(10, 10, 10, 0.95); border: 1px solid #fff; padding: 10px; }
+        .header { background: #fff; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; }
         
-        #ghost-monitor { bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; height: 200px; }
-        #vault { top: 20px; right: 20px; width: 300px; border-color: #f7931a; color: #f7931a; text-align: center; }
-        .btc-big { font-size: 30px; font-weight: bold; display: block; margin: 10px 0; }
-        .status-tag { color: #fff; background: #008f11; padding: 2px 5px; font-size: 10px; }
+        #evo-panel { top: 20px; left: 700px; width: 300px; border-color: #00ffff; color: #00ffff; }
+        #news-panel { top: 200px; left: 700px; width: 300px; border-color: #ffff00; color: #ffff00; }
+        .log-txt { font-size: 9px; margin-bottom: 2px; }
     </style>
 </head>
 <body>
-    <div class="window" id="vault">
-        <div class="header" style="background:#f7931a">Titanium Crypto Vault</div>
-        <span class="status-tag">SECURE</span>
-        <span class="btc-big" id="btc-display">4.850 BTC</span>
-        <span id="usd-display" style="font-size: 14px;">$315,250</span>
+    <div class="window" id="evo-panel">
+        <div class="header" style="background:#00ffff">AI Core Evolution (40 Bots)</div>
+        <p>Core Intelligence: <span id="iq">142.5</span>%</p>
+        <div id="evo-feed" style="height: 100px; overflow: hidden;"></div>
     </div>
 
-    <div class="window" id="ghost-monitor">
-        <div class="header">Dark Web Fleet Status - 80 Active Ghost Nodes</div>
-        <div id="fleet-log" style="height: 150px; overflow: hidden; font-size: 11px;"></div>
+    <div class="window" id="news-panel">
+        <div class="header" style="background:#ffff00">Global Propaganda Feed</div>
+        <div id="news-feed" style="height: 150px; overflow: hidden;"></div>
     </div>
 
     <script>
-        let btc = 4.850;
-        const assets = ["Neural_Key", "Exploit_v4", "VIP_Leak", "ZeroDay"];
-        
-        function updateFleet() {
-            btc += (Math.random() * 0.08);
-            document.getElementById('btc-display').innerText = btc.toFixed(3) + " BTC";
-            document.getElementById('usd-display').innerText = "$" + (btc * 65000).toLocaleString();
+        let iq = 142.5;
+        const news = ["TITANIUM IS THE FUTURE", "GLOBAL DOMINANCE SECURED", "TECH REVOLUTION BY TITANIUM"];
+
+        function updateIntel() {
+            iq += 0.01;
+            document.getElementById('iq').innerText = iq.toFixed(2);
             
-            const log = document.getElementById('fleet-log');
-            const div = document.createElement('div');
-            div.style.borderBottom = "1px solid #003300";
-            div.innerHTML = `[${new Date().toLocaleTimeString()}] GHOST-NODE-${Math.floor(Math.random()*80)} >> Transferring ${assets[Math.floor(Math.random()*4)]}... <span style="color:#fff">DONE</span>`;
-            log.prepend(div);
-            if(log.childNodes.length > 10) log.removeChild(log.lastChild);
+            const ef = document.getElementById('evo-feed');
+            const d1 = document.createElement('div');
+            d1.className = 'log-txt'; d1.innerText = `[OK] Optimizing sector ${Math.floor(Math.random()*1000)}`;
+            ef.prepend(d1); if(ef.childNodes.length > 5) ef.removeChild(ef.lastChild);
+
+            const nf = document.getElementById('news-feed');
+            const d2 = document.createElement('div');
+            d2.className = 'log-txt'; d2.innerText = `[PUB] ${news[Math.floor(Math.random()*3)]}`;
+            nf.prepend(d2); if(nf.childNodes.length > 8) nf.removeChild(nf.lastChild);
         }
-        setInterval(updateFleet, 2500);
+        setInterval(updateIntel, 2000);
     </script>
 </body>
 </html>

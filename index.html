@@ -2,47 +2,53 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM - GLOBAL OUTREACH</title>
+    <title>TITANIUM - TOTAL MARKET WAR</title>
     <style>
-        body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
-        .window { position: absolute; background: rgba(5, 0, 10, 0.95); border: 1px solid #bc13fe; padding: 10px; box-shadow: 0 0 20px rgba(188, 19, 254, 0.3); }
-        .header { background: #bc13fe; color: #fff; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; text-transform: uppercase; }
+        body { background: #050000; color: #ff0000; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        .window { position: absolute; background: rgba(30, 0, 0, 0.9); border: 2px solid #ff0000; padding: 10px; box-shadow: 0 0 30px #ff0000; }
+        .header { background: #ff0000; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 12px; }
         
-        #outreach-monitor { bottom: 20px; right: 20px; width: 400px; height: 250px; }
-        #stats { top: 20px; left: 20px; width: 340px; border-color: #0f0; }
-        .msg-line { font-size: 10px; color: #bc13fe; margin-bottom: 5px; border-bottom: 1px solid #2a0044; }
-        .highlight { color: #fff; font-weight: bold; }
+        #war-stats { top: 20px; left: 20px; width: 350px; }
+        #strike-log { bottom: 20px; right: 20px; width: 450px; height: 300px; border-color: #ffaa00; }
+        .strike { color: #ffaa00; font-size: 11px; margin-bottom: 4px; border-left: 3px solid #ff0000; padding-left: 5px; }
+        .big-num { font-size: 35px; color: #fff; text-shadow: 0 0 10px #ff0000; }
     </style>
 </head>
 <body>
-    <div class="window" id="stats">
-        <div class="header" style="background: #0f0">Empire Network</div>
-        <p>Total Bots: <span class="highlight">310 (280 Base + 30 Outreach)</span></p>
-        <p>VIP Connections: <span id="conn-count" class="highlight" style="font-size: 20px;">42</span></p>
+    <div class="window" id="war-stats">
+        <div class="header">Empire War Statistics</div>
+        <p>Active War Bots: <span class="big-num">50</span></p>
+        <p>Competitors Liquidated: <span id="liq-count" class="big-num">12</span></p>
+        <p>Market Dominance: <span id="dom-perc" style="color:#0f0">41.2%</span></p>
     </div>
 
-    <div class="window" id="outreach-monitor">
-        <div class="header">AI VIP Communication Hub</div>
-        <div id="outreach-feed" style="height: 200px; overflow: hidden;"></div>
+    <div class="window" id="strike-log">
+        <div class="header" style="background:#ffaa00">Live Tactical Strikes</div>
+        <div id="strike-content" style="height: 250px; overflow: hidden;"></div>
     </div>
 
     <script>
-        let conns = 42;
-        const targets = ["Elon M.", "Jeff B.", "Tim C.", "Satya N.", "Jensen H."];
-        const actions = ["Sent Personalized Offer", "Analyzing Portfolio", "Scheduling Meeting", "Deal Pending"];
-        
-        function updateOutreach() {
-            if(Math.random() > 0.7) conns++;
-            document.getElementById('conn-count').innerText = conns;
-            
-            const feed = document.getElementById('outreach-feed');
+        let liq = 12;
+        let dom = 41.2;
+        const targets = ["BlueCloud", "Nexus-Copy", "SlowAI", "OldGuard"];
+        const tactics = ["DDoS Migration", "Price Hijack", "Ad Takeover"];
+
+        function updateWarRoom() {
+            if(Math.random() > 0.8) {
+                liq++;
+                document.getElementById('liq-count').innerText = liq;
+            }
+            dom += 0.05;
+            document.getElementById('dom-perc').innerText = dom.toFixed(1) + "%";
+
+            const content = document.getElementById('strike-content');
             const div = document.createElement('div');
-            div.className = 'msg-line';
-            div.innerHTML = `[AI AGENT] ${targets[Math.floor(Math.random()*targets.length)]}: ${actions[Math.floor(Math.random()*actions.length)]}`;
-            feed.prepend(div);
-            if(feed.childNodes.length > 10) feed.removeChild(feed.lastChild);
+            div.className = 'strike';
+            div.innerHTML = `[STRIKE] ${targets[Math.floor(Math.random()*4)]} hit with ${tactics[Math.floor(Math.random()*3)]}`;
+            content.prepend(div);
+            if(content.childNodes.length > 15) content.removeChild(content.lastChild);
         }
-        setInterval(updateOutreach, 5000);
+        setInterval(updateWarRoom, 3000);
     </script>
 </body>
 </html>

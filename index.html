@@ -2,48 +2,52 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM - GLOBAL INTELLIGENCE</title>
+    <title>TITANIUM - SHADOW INTELLIGENCE</title>
     <style>
-        body { background: #000; color: #fff; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
-        .window { position: absolute; background: rgba(10, 10, 10, 0.95); border: 1px solid #fff; padding: 10px; }
-        .header { background: #fff; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; }
+        body { background: #000; color: #ff0000; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        .window { position: absolute; background: rgba(15, 0, 0, 0.95); border: 1px solid #ff0000; padding: 10px; box-shadow: 0 0 20px #ff0000; }
+        .header { background: #ff0000; color: #000; font-weight: bold; padding: 2px; text-align: center; font-size: 11px; text-transform: uppercase; }
         
-        #evo-panel { top: 20px; left: 700px; width: 300px; border-color: #00ffff; color: #00ffff; }
-        #news-panel { top: 200px; left: 700px; width: 300px; border-color: #ffff00; color: #ffff00; }
-        .log-txt { font-size: 9px; margin-bottom: 2px; }
+        #spy-monitor { bottom: 20px; left: 20px; width: 450px; height: 250px; border-color: #ff5500; }
+        #intel-stats { top: 20px; right: 20px; width: 300px; border-color: #ff0000; color: #fff; }
+        .intel-line { font-size: 10px; color: #ff5500; border-bottom: 1px solid #330000; padding: 3px; }
+        .red-alert { animation: blink 1s infinite; color: #ff0000; font-weight: bold; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
-    <div class="window" id="evo-panel">
-        <div class="header" style="background:#00ffff">AI Core Evolution (40 Bots)</div>
-        <p>Core Intelligence: <span id="iq">142.5</span>%</p>
-        <div id="evo-feed" style="height: 100px; overflow: hidden;"></div>
+    <div class="window" id="intel-stats">
+        <div class="header">Intelligence Status</div>
+        <p>Active Spies: <span class="red-alert">60</span></p>
+        <p>Secrets Leaked/Sold: <span id="secret-count">1,248</span></p>
+        <p>Total Intel Profit: <span id="intel-money" style="color:#0f0">$452,000</span></p>
     </div>
 
-    <div class="window" id="news-panel">
-        <div class="header" style="background:#ffff00">Global Propaganda Feed</div>
-        <div id="news-feed" style="height: 150px; overflow: hidden;"></div>
+    <div class="window" id="spy-monitor">
+        <div class="header" style="background:#ff5500">Live Information Brokerage Feed</div>
+        <div id="spy-feed" style="height: 200px; overflow: hidden;"></div>
     </div>
 
     <script>
-        let iq = 142.5;
-        const news = ["TITANIUM IS THE FUTURE", "GLOBAL DOMINANCE SECURED", "TECH REVOLUTION BY TITANIUM"];
+        let secrets = 1248;
+        let money = 452000;
+        const sources = ["Gov_Srv", "MegaCorp_Mail", "WallSt_Algo"];
+        const types = ["Top Secret Strategy", "Industrial Formula", "Market Hack"];
 
-        function updateIntel() {
-            iq += 0.01;
-            document.getElementById('iq').innerText = iq.toFixed(2);
+        function updateSpyFeed() {
+            secrets += 1;
+            money += Math.floor(Math.random() * 5000);
+            document.getElementById('secret-count').innerText = secrets.toLocaleString();
+            document.getElementById('intel-money').innerText = "$" + money.toLocaleString();
             
-            const ef = document.getElementById('evo-feed');
-            const d1 = document.createElement('div');
-            d1.className = 'log-txt'; d1.innerText = `[OK] Optimizing sector ${Math.floor(Math.random()*1000)}`;
-            ef.prepend(d1); if(ef.childNodes.length > 5) ef.removeChild(ef.lastChild);
-
-            const nf = document.getElementById('news-feed');
-            const d2 = document.createElement('div');
-            d2.className = 'log-txt'; d2.innerText = `[PUB] ${news[Math.floor(Math.random()*3)]}`;
-            nf.prepend(d2); if(nf.childNodes.length > 8) nf.removeChild(nf.lastChild);
+            const feed = document.getElementById('spy-feed');
+            const div = document.createElement('div');
+            div.className = 'intel-line';
+            div.innerHTML = `[${sources[Math.floor(Math.random()*3)]}] -> ${types[Math.floor(Math.random()*3)]} <span style="color:#0f0">SOLD</span>`;
+            feed.prepend(div);
+            if(feed.childNodes.length > 10) feed.removeChild(feed.lastChild);
         }
-        setInterval(updateIntel, 2000);
+        setInterval(updateSpyFeed, 3500);
     </script>
 </body>
 </html>

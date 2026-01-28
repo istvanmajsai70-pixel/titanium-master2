@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM DRAGON NEXUS</title>
+    <title>TITANIUM DRAGON NEXUS - LIVE</title>
     <style>
         body {
             background: #000 url('https://wallpaperaccess.com/full/158607.jpg') no-repeat center center fixed;
@@ -14,71 +14,91 @@
         }
         .overlay {
             position: absolute; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
+            pointer-events: none;
         }
         .window {
             position: absolute;
-            width: 250px; height: 180px;
-            background: rgba(0, 20, 20, 0.9);
-            border: 2px solid #00ffcc;
-            box-shadow: 0 0 15px #005544;
+            width: 250px; height: 160px;
+            background: rgba(0, 15, 15, 0.9);
+            border: 1px solid #00ffcc;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
             padding: 10px;
-            font-size: 12px;
-            cursor: move;
+            font-size: 13px;
             overflow: hidden;
+            transition: transform 0.3s;
         }
+        .window:hover { transform: scale(1.02); border-color: #fff; }
         .window-header {
             background: #00ffcc;
             color: #000;
             padding: 2px 5px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             text-transform: uppercase;
+            font-size: 11px;
         }
-        /* Ablakok pozicionálása */
         #win1 { top: 20px; left: 20px; }
         #win2 { top: 20px; left: 300px; }
         #win3 { top: 20px; left: 580px; }
-        #win4 { top: 220px; left: 20px; }
-        #win5 { top: 220px; left: 300px; }
-        #win6 { top: 220px; left: 580px; }
-        #win7 { top: 420px; left: 20px; }
-        #win8 { top: 420px; left: 300px; }
-        #win9 { top: 420px; left: 580px; }
-        #win10 { top: 150px; left: 860px; width: 350px; height: 350px; border-color: #ff0000; }
+        #win4 { top: 200px; left: 20px; }
+        #win5 { top: 200px; left: 300px; }
+        #win6 { top: 200px; left: 580px; }
+        #win7 { top: 380px; left: 20px; }
+        #win8 { top: 380px; left: 300px; }
+        #win9 { top: 380px; left: 580px; }
+        #win10 { top: 100px; left: 860px; width: 380px; height: 440px; border: 2px solid #ff0000; background: rgba(20, 0, 0, 0.9); }
         
-        .stat-val { color: #fff; font-weight: bold; }
+        .val { color: #fff; text-shadow: 0 0 5px #fff; }
+        .green { color: #0f0; }
+        .red { color: #ff0000; }
     </style>
 </head>
 <body>
     <div class="overlay"></div>
 
-    <div class="window" id="win1"><div class="window-header">Bányász Divízió</div>Status: <span class="stat-val">RUNNING</span><br>Efficiency: 98.4%</div>
-    <div class="window" id="win2"><div class="window-header">Sales Bot 1-50</div>Active: <span class="stat-val">50/50</span><br>Target: Global</div>
-    <div class="window" id="win3"><div class="window-header">3000TB Cloud</div>Usage: <span class="stat-val">1.2 PB</span><br>Free: 1.8 PB</div>
-    <div class="window" id="win4"><div class="window-header">IBAN Gateway</div>Secure: <span class="stat-val">YES</span><br>Traffic: Encrypted</div>
-    <div class="window" id="win5"><div class="window-header">Nexus Traffic</div>Inbound: <span class="stat-val">442 GB/s</span></div>
-    <div class="window" id="win6"><div class="window-header">Global Mesh</div>Nodes: <span class="stat-val">1204</span><br>Latency: 2ms</div>
-    <div class="window" id="win7"><div class="window-header">Crypto Miner</div>Hashrate: <span class="stat-val">880 TH/s</span></div>
-    <div class="window" id="win8"><div class="window-header">AI Support</div>Requests: <span class="stat-val">14/min</span></div>
-    <div class="window" id="win9"><div class="window-header">Empire Security</div>Shield: <span class="stat-val">ACTIVE</span></div>
+    <div class="window" id="win1"><div class="window-header">Mining Core</div>Status: <span class="green">ACTIVE</span><br>Hashrate: <span id="hash" class="val">882.4</span> TH/s</div>
+    <div class="window" id="win2"><div class="window-header">Sales Fleet</div>Active Bots: <span class="val">50/50</span><br>Leads: <span id="leads" class="val">142</span></div>
+    <div class="window" id="win3"><div class="window-header">Cloud Storage</div>Total: <span class="val">3000 TB</span><br>Used: <span id="used" class="val">1102.4</span> TB</div>
+    <div class="window" id="win4"><div class="window-header">Traffic Analyzer</div>Inbound: <span id="in" class="val">44</span> Gb/s<br>Outbound: <span id="out" class="val">12</span> Gb/s</div>
+    <div class="window" id="win5"><div class="window-header">Security Shield</div>Level: <span class="val">MAXIMUM</span><br>Threats Blocked: <span id="threats" class="val">420</span></div>
+    <div class="window" id="win6"><div class="window-header">Network Nodes</div>Online: <span id="nodes" class="val">1420</span><br>Ping: <span id="ping" class="val">2</span> ms</div>
+    <div class="window" id="win7"><div class="window-header">Support Bots</div>Queue: <span id="queue" class="val">0</span><br>Resolved: <span id="res" class="val">8829</span></div>
+    <div class="window" id="win8"><div class="window-header">Market Index</div>Global Price: <span id="price" class="val">42.1</span> BTC<br>Trend: <span class="green">▲ UP</span></div>
+    <div class="window" id="win9"><div class="window-header">System Logs</div><div id="logs" style="font-size:10px; color:#aaa;">Initializing...</div></div>
     
     <div class="window" id="win10">
-        <div class="window-header" style="background:#ff0000">Master Control - Titanium</div>
-        <p>Üdvözöllek, Titanium!</p>
-        <p>A 3000TB-os hálózat minden szektora stabil.</p>
-        <p>A botok a háttérben dolgoznak.</p>
-        <hr>
-        <p style="color:#ff0000">REVENUE: HU00 0000...</p>
+        <div class="window-header" style="background:#ff0000">Master Control - TITANIUM</div>
+        <h2 style="color:#ff0000; text-align:center;">EMPIRE OVERVIEW</h2>
+        <p>User: <b>Titanium</b></p>
+        <p>Access Level: <b>GOD MODE</b></p>
+        <hr color="#ff0000">
+        <p>Estimated Revenue Today:</p>
+        <h1 style="color:#0f0; text-align:center;">$<span id="money">1420.50</span></h1>
+        <hr color="#ff0000">
+        <p>IBAN: <span style="font-size:10px;">HU00 0000 0000 0000 0000 0000</span></p>
     </div>
 
     <script>
-        // Egyszerű ablakmozgatás szimuláció (Titanium Master Control)
-        document.querySelectorAll('.window').forEach(win => {
-            win.onclick = function() {
-                this.style.zIndex = "100";
-            };
-        });
+        function update() {
+            document.getElementById('hash').innerText = (800 + Math.random() * 200).toFixed(2);
+            document.getElementById('leads').innerText = Math.floor(100 + Math.random() * 50);
+            document.getElementById('used').innerText = (1100 + Math.random() * 10).toFixed(1);
+            document.getElementById('in').innerText = Math.floor(30 + Math.random() * 60);
+            document.getElementById('out').innerText = Math.floor(5 + Math.random() * 20);
+            document.getElementById('threats').innerText = Math.floor(400 + Math.random() * 100);
+            document.getElementById('nodes').innerText = Math.floor(1400 + Math.random() * 50);
+            document.getElementById('ping').innerText = Math.floor(1 + Math.random() * 5);
+            document.getElementById('queue').innerText = Math.floor(Math.random() * 5);
+            document.getElementById('money').innerText = (1400 + Math.random() * 500).toFixed(2);
+            
+            const logs = document.getElementById('logs');
+            const newLog = document.createElement('div');
+            newLog.innerText = "> Bot-" + Math.floor(Math.random()*99) + " action verified.";
+            logs.prepend(newLog);
+            if(logs.childNodes.length > 8) logs.removeChild(logs.lastChild);
+        }
+        setInterval(update, 2000);
     </script>
 </body>
 </html>

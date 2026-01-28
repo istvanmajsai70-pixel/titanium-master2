@@ -2,56 +2,46 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM - GLOBAL DOMINANCE</title>
+    <title>TITANIUM - GLOBAL INFLUENCE</title>
     <style>
         body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
-        .window { position: absolute; background: rgba(0, 10, 10, 0.9); border: 1px solid #00ffcc; padding: 10px; box-shadow: 0 0 15px #00ffcc; }
-        .header { background: #00ffcc; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; text-transform: uppercase; }
+        .window { position: absolute; background: rgba(10, 10, 0, 0.95); border: 1px solid #ffd700; padding: 10px; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        .header { background: #ffd700; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; text-transform: uppercase; }
         
-        /* Marketing Gauge */
-        #marketing-stat { bottom: 20px; left: 20px; width: 350px; height: 150px; border-color: #00aaff; }
-        .bar-container { width: 100%; background: #222; height: 20px; margin-top: 10px; }
-        .bar { height: 100%; background: #00aaff; width: 0%; transition: width 1s; }
-        
-        #social-feed { top: 120px; right: 20px; width: 300px; height: 400px; border-color: #ff00ff; }
-        .social-line { font-size: 10px; color: #ff00ff; margin-bottom: 5px; border-bottom: 1px solid #333; }
+        #vip-monitor { top: 20px; left: 380px; width: 300px; height: 300px; }
+        #stats { top: 20px; left: 20px; width: 340px; border-color: #0f0; }
+        .vip-line { font-size: 10px; color: #ffd700; margin-bottom: 5px; border-bottom: 1px solid #443c00; }
+        .count { font-size: 24px; color: #fff; text-shadow: 0 0 10px #ffd700; }
     </style>
 </head>
 <body>
-    <div class="window" id="marketing-stat">
-        <div class="header" style="background: #00aaff">Global Brand Reach</div>
-        <p style="font-size: 12px;">Total Impressions: <span id="impressions">0</span></p>
-        <div class="bar-container"><div id="reach-bar" class="bar"></div></div>
-        <p style="font-size: 10px; color: #00aaff;">Bot Network: ACTIVE (50 Nodes)</p>
+    <div class="window" id="stats">
+        <div class="header" style="background: #0f0">Empire Status</div>
+        <p>Total Bots: <span style="color:#fff">280 (200 Core + 50 Soc + 30 VIP)</span></p>
+        <p>Database Size: <span id="db-size" class="count">0</span> <small>Targets</small></p>
     </div>
 
-    <div class="window" id="social-feed">
-        <div class="header" style="background: #ff00ff">Social Manipulation Feed</div>
-        <div id="social-content"></div>
+    <div class="window" id="vip-monitor">
+        <div class="header">VIP Influence Database - Live Crawl</div>
+        <div id="vip-feed" style="height: 250px; overflow: hidden;"></div>
     </div>
 
     <script>
-        let totalReach = 0;
-        const platforms = ["X/Twitter", "Reddit", "LinkedIn", "Instagram"];
+        let dbSize = 1420;
+        const targets = ["CEO of Global Bank", "Tech Billionaire", "Venture Capitalist", "EU Regulator", "Hollywood Agent"];
         
-        function updateMarketing() {
-            const reach = Math.floor(Math.random() * 5000);
-            totalReach += reach;
-            document.getElementById('impressions').innerText = totalReach.toLocaleString();
+        function updateVIP() {
+            dbSize += Math.floor(Math.random() * 3);
+            document.getElementById('db-size').innerText = dbSize;
             
-            // Csík növelése (szimulált 1M cél)
-            let percent = (totalReach / 1000000) * 100;
-            document.getElementById('reach-bar').style.width = Math.min(percent, 100) + "%";
-
-            // Social feed frissítése
-            const feed = document.getElementById('social-content');
+            const feed = document.getElementById('vip-feed');
             const div = document.createElement('div');
-            div.className = 'social-line';
-            div.innerHTML = `[${platforms[Math.floor(Math.random()*4)]}] Viral post active: +${reach} reach`;
+            div.className = 'vip-line';
+            div.innerHTML = `[SECURED] ${targets[Math.floor(Math.random()*targets.length)]} - Data Encrypted`;
             feed.prepend(div);
-            if(feed.childNodes.length > 15) feed.removeChild(feed.lastChild);
+            if(feed.childNodes.length > 12) feed.removeChild(feed.lastChild);
         }
-        setInterval(updateMarketing, 3000);
+        setInterval(updateVIP, 4000);
     </script>
 </body>
 </html>

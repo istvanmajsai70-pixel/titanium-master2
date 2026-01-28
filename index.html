@@ -2,108 +2,56 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM EMPIRE - ENTERPRISE HUB</title>
+    <title>TITANIUM - GLOBAL DOMINANCE</title>
     <style>
-        body {
-            background: #000 url('https://wallpaperaccess.com/full/158607.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #00ffcc;
-            font-family: 'Courier New', monospace;
-            margin: 0; overflow: hidden;
-        }
-        .overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.88); pointer-events: none; }
+        body { background: #000; color: #00ffcc; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        .window { position: absolute; background: rgba(0, 10, 10, 0.9); border: 1px solid #00ffcc; padding: 10px; box-shadow: 0 0 15px #00ffcc; }
+        .header { background: #00ffcc; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; text-transform: uppercase; }
         
-        /* Ablak stílusok */
-        .window {
-            position: absolute; background: rgba(0, 10, 10, 0.95);
-            border: 1px solid #00ffcc; padding: 15px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-        }
-        .header { background: #00ffcc; color: #000; font-weight: bold; padding: 5px; margin-bottom: 10px; text-transform: uppercase; text-align: center; font-size: 12px; }
+        /* Marketing Gauge */
+        #marketing-stat { bottom: 20px; left: 20px; width: 350px; height: 150px; border-color: #00aaff; }
+        .bar-container { width: 100%; background: #222; height: 20px; margin-top: 10px; }
+        .bar { height: 100%; background: #00aaff; width: 0%; transition: width 1s; }
         
-        /* Katalógus és Gombok */
-        table { width: 100%; border-collapse: collapse; }
-        td { padding: 10px 5px; border-bottom: 1px solid rgba(0, 255, 204, 0.1); font-size: 11px; }
-        .price-tag { color: #fff; font-weight: bold; cursor: help; border-bottom: 1px dotted #fff; }
-        .buy-btn { 
-            background: #ff0000; color: #fff; border: none; padding: 3px 8px; 
-            cursor: pointer; font-size: 10px; font-weight: bold; float: right;
-        }
-        .buy-btn:hover { background: #fff; color: #ff0000; }
-
-        /* Biztonsági Pecsét (B opció) */
-        .seal {
-            border: 2px solid #ffff00; color: #ffff00; padding: 5px;
-            text-align: center; font-weight: bold; margin-top: 10px;
-            text-transform: uppercase; font-size: 10px;
-        }
-
-        /* Dokumentáció Popup (C opció) */
-        #desc-box {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 300px; background: #000; border: 2px solid #ff0000; padding: 20px; z-index: 1000;
-        }
-
-        #price-list { top: 20px; left: 20px; width: 500px; height: 580px; }
-        #master { top: 20px; left: 540px; width: 350px; }
+        #social-feed { top: 120px; right: 20px; width: 300px; height: 400px; border-color: #ff00ff; }
+        .social-line { font-size: 10px; color: #ff00ff; margin-bottom: 5px; border-bottom: 1px solid #333; }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
-
-    <div class="window" id="price-list">
-        <div class="header">Titanium Enterprise Catalog</div>
-        <table>
-            <tr>
-                <td><b>Titanium Cloud (3000TB)</b><br><small>Hálózati tárhely megoldás</small></td>
-                <td><span class="price-tag" onclick="showDesc('A világ legnagyobb privát cloud hálózata. 256-bit titkosítás.')">$2,499</span>
-                <button class="buy-btn" onclick="order()">ORDER</button></td>
-            </tr>
-            <tr>
-                <td><b>Nexus Controller v4</b><br><small>Központi irányító szoftver</small></td>
-                <td><span class="price-tag" onclick="showDesc('Teljes automatizáció 120+ bot kezeléséhez. Egyedi licenc.')">$5,000</span>
-                <button class="buy-btn" onclick="order()">ORDER</button></td>
-            </tr>
-            <tr>
-                <td><b>Cyber-Shield Enterprise</b><br><small>AI-alapú védelem</small></td>
-                <td><span class="price-tag" onclick="showDesc('Valós idejű behatolásjelző és blokkoló rendszer.')">$1,200</span>
-                <button class="buy-btn" onclick="order()">ORDER</button></td>
-            </tr>
-        </table>
-        
-        <div class="seal">
-            Verified by Titanium Security Bureau<br>
-            ★ ★ ★ ★ ★<br>
-            100% SECURE TRANSACTION
-        </div>
+    <div class="window" id="marketing-stat">
+        <div class="header" style="background: #00aaff">Global Brand Reach</div>
+        <p style="font-size: 12px;">Total Impressions: <span id="impressions">0</span></p>
+        <div class="bar-container"><div id="reach-bar" class="bar"></div></div>
+        <p style="font-size: 10px; color: #00aaff;">Bot Network: ACTIVE (50 Nodes)</p>
     </div>
 
-    <div class="window" id="master">
-        <div class="header" style="background: #ff0000">Financial Overview</div>
-        <p>Total Revenue: <span id="rev" style="color:#0f0">$14,502.20</span></p>
-        <p>Bot Status: <span style="color:#0f0">120 Active</span></p>
-        <hr color="#ff0000">
-        <button onclick="order()" style="width:100%; background:#0f0; border:none; padding:10px; font-weight:bold; cursor:pointer">WITHDRAW TO IBAN</button>
-    </div>
-
-    <div id="desc-box">
-        <div class="header" id="desc-title">Software Info</div>
-        <p id="desc-text" style="font-size:12px;"></p>
-        <button onclick="document.getElementById('desc-box').style.display='none'" style="background:#444; color:#fff; border:none; width:100%; cursor:pointer">CLOSE</button>
+    <div class="window" id="social-feed">
+        <div class="header" style="background: #ff00ff">Social Manipulation Feed</div>
+        <div id="social-content"></div>
     </div>
 
     <script>
-        function showDesc(text) {
-            document.getElementById('desc-text').innerText = text;
-            document.getElementById('desc-box').style.display = 'block';
+        let totalReach = 0;
+        const platforms = ["X/Twitter", "Reddit", "LinkedIn", "Instagram"];
+        
+        function updateMarketing() {
+            const reach = Math.floor(Math.random() * 5000);
+            totalReach += reach;
+            document.getElementById('impressions').innerText = totalReach.toLocaleString();
+            
+            // Csík növelése (szimulált 1M cél)
+            let percent = (totalReach / 1000000) * 100;
+            document.getElementById('reach-bar').style.width = Math.min(percent, 100) + "%";
+
+            // Social feed frissítése
+            const feed = document.getElementById('social-content');
+            const div = document.createElement('div');
+            div.className = 'social-line';
+            div.innerHTML = `[${platforms[Math.floor(Math.random()*4)]}] Viral post active: +${reach} reach`;
+            feed.prepend(div);
+            if(feed.childNodes.length > 15) feed.removeChild(feed.lastChild);
         }
-        function order() {
-            alert("Rendelés rögzítve! Az IBAN adatok és a szerződés elküldve a botoknak feldolgozásra.");
-        }
-        setInterval(() => {
-            let r = parseFloat(document.getElementById('rev').innerText.replace('$','').replace(',',''));
-            r += Math.random() * 10;
-            document.getElementById('rev').innerText = "$" + r.toLocaleString('en-US', {minimumFractionDigits: 2});
-        }, 2000);
+        setInterval(updateMarketing, 3000);
     </script>
 </body>
 </html>

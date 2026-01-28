@@ -2,53 +2,48 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>TITANIUM - TOTAL MARKET WAR</title>
+    <title>TITANIUM - SHADOW EMPIRE</title>
     <style>
-        body { background: #050000; color: #ff0000; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
-        .window { position: absolute; background: rgba(30, 0, 0, 0.9); border: 2px solid #ff0000; padding: 10px; box-shadow: 0 0 30px #ff0000; }
-        .header { background: #ff0000; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 12px; }
+        body { background: #000; color: #00ff41; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        .window { position: absolute; background: rgba(0, 5, 0, 0.98); border: 2px solid #00ff41; padding: 10px; box-shadow: 0 0 25px #00ff41; }
+        .header { background: #00ff41; color: #000; font-weight: bold; padding: 3px; text-align: center; font-size: 11px; }
         
-        #war-stats { top: 20px; left: 20px; width: 350px; }
-        #strike-log { bottom: 20px; right: 20px; width: 450px; height: 300px; border-color: #ffaa00; }
-        .strike { color: #ffaa00; font-size: 11px; margin-bottom: 4px; border-left: 3px solid #ff0000; padding-left: 5px; }
-        .big-num { font-size: 35px; color: #fff; text-shadow: 0 0 10px #ff0000; }
+        #ghost-monitor { bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; height: 200px; }
+        #vault { top: 20px; right: 20px; width: 300px; border-color: #f7931a; color: #f7931a; text-align: center; }
+        .btc-big { font-size: 30px; font-weight: bold; display: block; margin: 10px 0; }
+        .status-tag { color: #fff; background: #008f11; padding: 2px 5px; font-size: 10px; }
     </style>
 </head>
 <body>
-    <div class="window" id="war-stats">
-        <div class="header">Empire War Statistics</div>
-        <p>Active War Bots: <span class="big-num">50</span></p>
-        <p>Competitors Liquidated: <span id="liq-count" class="big-num">12</span></p>
-        <p>Market Dominance: <span id="dom-perc" style="color:#0f0">41.2%</span></p>
+    <div class="window" id="vault">
+        <div class="header" style="background:#f7931a">Titanium Crypto Vault</div>
+        <span class="status-tag">SECURE</span>
+        <span class="btc-big" id="btc-display">4.850 BTC</span>
+        <span id="usd-display" style="font-size: 14px;">$315,250</span>
     </div>
 
-    <div class="window" id="strike-log">
-        <div class="header" style="background:#ffaa00">Live Tactical Strikes</div>
-        <div id="strike-content" style="height: 250px; overflow: hidden;"></div>
+    <div class="window" id="ghost-monitor">
+        <div class="header">Dark Web Fleet Status - 80 Active Ghost Nodes</div>
+        <div id="fleet-log" style="height: 150px; overflow: hidden; font-size: 11px;"></div>
     </div>
 
     <script>
-        let liq = 12;
-        let dom = 41.2;
-        const targets = ["BlueCloud", "Nexus-Copy", "SlowAI", "OldGuard"];
-        const tactics = ["DDoS Migration", "Price Hijack", "Ad Takeover"];
-
-        function updateWarRoom() {
-            if(Math.random() > 0.8) {
-                liq++;
-                document.getElementById('liq-count').innerText = liq;
-            }
-            dom += 0.05;
-            document.getElementById('dom-perc').innerText = dom.toFixed(1) + "%";
-
-            const content = document.getElementById('strike-content');
+        let btc = 4.850;
+        const assets = ["Neural_Key", "Exploit_v4", "VIP_Leak", "ZeroDay"];
+        
+        function updateFleet() {
+            btc += (Math.random() * 0.08);
+            document.getElementById('btc-display').innerText = btc.toFixed(3) + " BTC";
+            document.getElementById('usd-display').innerText = "$" + (btc * 65000).toLocaleString();
+            
+            const log = document.getElementById('fleet-log');
             const div = document.createElement('div');
-            div.className = 'strike';
-            div.innerHTML = `[STRIKE] ${targets[Math.floor(Math.random()*4)]} hit with ${tactics[Math.floor(Math.random()*3)]}`;
-            content.prepend(div);
-            if(content.childNodes.length > 15) content.removeChild(content.lastChild);
+            div.style.borderBottom = "1px solid #003300";
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] GHOST-NODE-${Math.floor(Math.random()*80)} >> Transferring ${assets[Math.floor(Math.random()*4)]}... <span style="color:#fff">DONE</span>`;
+            log.prepend(div);
+            if(log.childNodes.length > 10) log.removeChild(log.lastChild);
         }
-        setInterval(updateWarRoom, 3000);
+        setInterval(updateFleet, 2500);
     </script>
 </body>
 </html>
